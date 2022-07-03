@@ -59,7 +59,7 @@ import { Tyme } from './../TheTable/utils/types';
             {currentlyEditing ? (
               <div>
                 <input
-                  className="w-full border-red-900 border-2 text-center text-black p-[5px]"
+                  className="w-full border-red-900 border-2 text-center text-black p-[4px] sm:p-[2px]"
                   id={head.prop}
                   name={head.prop}
                   onChange={(e) => handleChange(e, head.prop, index)}
