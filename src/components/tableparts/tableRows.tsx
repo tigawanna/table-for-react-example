@@ -50,7 +50,7 @@ import { Tyme } from './../TheTable/utils/types';
       {header.map((head, index) => {
         return (
           <td
-          className="border-slate-800 border-2 text-center p-1 overflow-hidden text-sm font-medium"
+          className="border-slate-800 border-2 text-center p-1 overflow-hidden text-sm text-white font-medium"
             key={
               //@ts-ignore
               head.prop + item[head.prop]
@@ -59,7 +59,7 @@ import { Tyme } from './../TheTable/utils/types';
             {currentlyEditing ? (
               <div>
                 <input
-                  className="w-full border-red-900 border-2 text-center"
+                  className="w-full border-red-900 border-2 text-center text-black p-[5px]"
                   id={head.prop}
                   name={head.prop}
                   onChange={(e) => handleChange(e, head.prop, index)}
@@ -81,9 +81,9 @@ import { Tyme } from './../TheTable/utils/types';
       })}
 
       {update ? (
-        <td className="border-slate-800 border-2 p-1">
+        <td className="border-slate-800 border-2 p-1 ">
           <IconContext.Provider
-            value={{ size: "20px",className:"mx-[2px] opacity-50 hover:opacity-100"  }}
+            value={{ size: "20px",className:"mx-[2px] sm:opacity-50 hover:opacity-100 text-white"  }}
           >
             <div className=" w-full  flex justify-center items-center">
             {currentlyEditing ? (

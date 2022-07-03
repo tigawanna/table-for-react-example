@@ -93,16 +93,16 @@ const { countdown, start,reset} = useCountdownTimer({timer: 1000 * 5,resetOnExpi
 return (
     <div className="w-full h-full">
   <div className="w-full h-full overflow-x-scroll lg:overflow-x-hidden">
-        <table border={1} className="table-auto lg:table-fixed border-slate-600 h-full w-full">
+        <table border={1} className="table-auto  border-slate-600 h-full w-full">
           <thead className="p-5 w-screen sticky top-0">
             <tr>
               {header &&
                 header.map((x, i) => {
                   return <th key={x.name + i}
-                  className="p-[12px] bg-slate-900 border-slate-900 border align-middle text-center"
+                  className="p-[12px] bg-slate-900 border-slate-900 border align-middle text-center text-white"
                   >{x.name}</th>;
                 })}
-              {update ? <th className=" bg-slate-900 opacity-100 ">Edit</th> : null}
+              {update ? <th className=" bg-slate-900 opacity-100 text-white">Edit</th> : null}
             </tr>
           </thead>
           <tbody className="border-slate-800 border-2">
