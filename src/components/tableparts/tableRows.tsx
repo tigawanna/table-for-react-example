@@ -6,7 +6,7 @@ import {
   } from "react-icons/fa";
 
   import { IconContext } from "react-icons/lib";
-import { ErrorState, TableRow } from "../TheTable/utils/types";
+import { ErrorState} from "../TheTable/utils/types";
 import { tymeToDate } from './../TheTable/utils/utils';
 import { Tyme } from './../TheTable/utils/types';
 
@@ -15,14 +15,14 @@ import { Tyme } from './../TheTable/utils/types';
   
  export const mainRow = (
     index: number,
-    item: TableRow,
+    item: any,
     header: { name: string; prop: string }[],
     handleChange: any,
     editIdx: number,
-    startEditing: (index: number, item: TableRow) => void,
-    stopEditing: (index: number, item: TableRow) => void,
-    removeItem: (index: number, item: TableRow) => void,
-    input: TableRow,
+    startEditing: (index: number, item: any) => void,
+    stopEditing: (index: number, item: any) => void,
+    removeItem: (index: number, item: any) => void,
+    input: any,
     update: boolean,
     error: ErrorState | undefined
   ) => {
@@ -30,7 +30,7 @@ import { Tyme } from './../TheTable/utils/types';
   //transform <td> data here before it's mapped to the table, remember no obects allowwed as react children
   const mapToCurrent = (
     prop: string | number,
-    item: TableRow
+    item: any
   ): string | number => {
   
   //checking for firebase timestamp object to civert it to date

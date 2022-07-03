@@ -1,29 +1,42 @@
 import React,{useState} from 'react'
-import { TableRow,ErrorState } from './utils/types';
-import DATA from './utils/MOCK_TABLE.json'
+import { ErrorState } from './utils/types';
+
 import { useCountdownTimer } from 'use-countdown-timer';
-import { header } from './utils/vars';
 import { mainRow } from '../tableparts/tableRows';
 import { UndoModal } from '../tableparts/UndoModal';
 
 interface TheTableProps {
-
+rows:any[]
+error:ErrorState
+update:boolean
+header:{name:string,prop:string}[]
+validate: (prev: any, current: any) => boolean
+saveChanges: (prev: any, current: any) => void
+deleteRow: (current: any) => void
 }
 
-export const TheTable: React.FC<TheTableProps> = ({}) => {
-const defaultRow={ id:0,name:"name",age:0 ,email:"@email",date:"today"}
+export const TheTable: React.FC<TheTableProps> = (
+  {rows,
+  error,
+  update,
+  header,
+  validate,
+  saveChanges,
+  deleteRow
+}
+  ) => {
 
-const [data, setData] = useState<TableRow[]>(DATA);
+
+const [data, setData] = useState<any>(rows);
 const [editIdx, setEditIdx] = useState(-1);
- const [before, setBefore] = useState<TableRow>(defaultRow);
- const [update, setUpdate] = useState(true);
- const [input, setInput] = useState<TableRow>(defaultRow);
- const [error, setError] = useState<ErrorState>({name:"",error:""});
- const { countdown, start,reset,isRunning } = useCountdownTimer({timer: 1000 * 5,resetOnExpire:true});
+const [before, setBefore] = useState<any>({});
+const [input, setInput] = useState<any>();
 
- console.log(countdown)
+const { countdown, start,reset} = useCountdownTimer({timer: 1000 * 5,resetOnExpire:true});
+
+
  //@ts-ignore
- const handleChange = (e, vals, item) => {
+ const handleChange = (e, item) => {
    const { value } = e.target;
 
    setInput({
@@ -32,6 +45,7 @@ const [editIdx, setEditIdx] = useState(-1);
 
    });
  };
+
  //convert row from td cell to input to start editing
  const startEditing = (index: number) => {
    if (index === -23) {
@@ -39,9 +53,9 @@ const [editIdx, setEditIdx] = useState(-1);
    } else {
      setEditIdx(index);
    }
-
-//  data?.map((row, j) => (j === index ? setBefore(row) : row));
-//  data?.map((row, j) => (j === index ? setInput(row) : row));
+//copy the row selected to before to compare to changes in input
+ data?.map((row:any, j:number) => (j === index ? setBefore(row) : row));
+ data?.map((row:any, j:number) => (j === index ? setInput(row) : row));
 
 };
 
@@ -50,9 +64,9 @@ const [editIdx, setEditIdx] = useState(-1);
      setEditIdx(-1);
    } else {
      setEditIdx(-1);
-  
-     //no(index);
-     // data?.splice(index, 1);
+     deleteRow(input)
+     data?.splice(index, 1);
+     start()
    }
  };
  //restore item to the top of the list
@@ -63,8 +77,13 @@ const [editIdx, setEditIdx] = useState(-1);
 
  //save the edits to db
  const stopEditing = async (index: number) => {
-   console.log("saving ", index)
-   start()
+    if(validate(before,input)){
+     data?.splice(index, 1,input);
+    setEditIdx(-1);
+    saveChanges(before,input)
+   
+   }
+  
   //  if(index!==9){
   //   setError({name:"date",error:"deeznuts"})
   //  }
@@ -88,7 +107,7 @@ return (
           </thead>
           <tbody className="border-slate-800 border-2">
             {data &&
-              data.map((dataitem, dataindex) => {
+              data.map((dataitem:Object, dataindex:number) => {
                 return mainRow(
                   dataindex,
                   dataitem,
