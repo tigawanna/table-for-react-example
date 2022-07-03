@@ -27,7 +27,7 @@ import { Tyme } from './../TheTable/utils/types';
     error: ErrorState | undefined
   ) => {
 
-  //to make sure the previous values are loaded into the current value input on start edit
+  //transform <td> data here before it's mapped to the table, remember no obects allowwed as react children
   const mapToCurrent = (
     prop: string | number,
     item: TableRow
@@ -45,7 +45,7 @@ import { Tyme } from './../TheTable/utils/types';
 
  const currentlyEditing = editIdx === index;
     return (
-      <tr key={item.id}>
+      <tr key={item.id} className="">
       {/* table cell */}
       {header.map((head, index) => {
         return (
@@ -59,7 +59,7 @@ import { Tyme } from './../TheTable/utils/types';
             {currentlyEditing ? (
               <div>
                 <input
-                  className="w-full border-red-900 border-2 "
+                  className="w-full border-red-900 border-2 text-center"
                   id={head.prop}
                   name={head.prop}
                   onChange={(e) => handleChange(e, head.prop, index)}
@@ -69,7 +69,7 @@ import { Tyme } from './../TheTable/utils/types';
                   }
                 />
                 {error && error.name !=="" && error.name === head.prop ? (
-                  <div className="text-red-500 text-sm ">{error.error}</div>
+                  <div className="text-red-300 text-sm ">{error.error}</div>
                 ) : null}
               </div>
             ) : (
@@ -81,11 +81,11 @@ import { Tyme } from './../TheTable/utils/types';
       })}
 
       {update ? (
-        <td className="border-slate-800 border-2 ">
+        <td className="border-slate-800 border-2 p-1">
           <IconContext.Provider
-            value={{ size: "20px",  }}
+            value={{ size: "20px",className:"mx-[2px] opacity-50 hover:opacity-100"  }}
           >
-            <div className=" w-full flex justify-center items-center">
+            <div className=" w-full  flex justify-center items-center">
             {currentlyEditing ? (
               <FaRegCheckCircle onClick={() => stopEditing(index, item)} />
             ) : (
