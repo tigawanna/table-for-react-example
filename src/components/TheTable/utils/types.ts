@@ -3,10 +3,16 @@ export interface TableRow{
     name:string
     age:number
     email:string
-    date:Date|string
+    date:Date|string|Tyme
 }
 
 export interface ErrorState {
     name: string;
     error: string;
+  }
+
+  //for firebase timestamps
+  export interface Tyme{
+    nanoseconds: number,
+    seconds:number
   }

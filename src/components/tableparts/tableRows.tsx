@@ -7,6 +7,9 @@ import {
 
   import { IconContext } from "react-icons/lib";
 import { ErrorState, TableRow } from "../TheTable/utils/types";
+import { tymeToDate } from './../TheTable/utils/utils';
+import { Tyme } from './../TheTable/utils/types';
+
 
   
   
@@ -29,6 +32,12 @@ import { ErrorState, TableRow } from "../TheTable/utils/types";
     prop: string | number,
     item: TableRow
   ): string | number => {
+  
+  //checking for firebase timestamp object to civert it to date
+  if(prop==="date" && (item[prop] as Tyme).seconds){
+   return tymeToDate(item[prop] as Tyme)
+  }
+
   //@ts-ignore
   return item[prop];
   };
