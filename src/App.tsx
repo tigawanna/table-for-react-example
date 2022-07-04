@@ -1,13 +1,34 @@
-import { TheTable } from "./components/TheTable/TheTable";
 import DATA from './MOCK_TABLE.json'
 import { useState } from 'react';
-import { header } from './components/TheTable/utils/vars';
-import { ErrorState } from "./components/TheTable/utils/types";
-
+import { TheTable } from './components/TheTable/TheTable';
+// import {TheTable } from 'table-for-react'
 
 function App() {
   const [update, setUpdate] = useState(true);
-  const [error, setError] = useState<ErrorState>({name:"",error:""});
+  const [error, setError] = useState({name:"",error:""});
+
+   const header = [
+    {
+      name: "ID",
+      prop: "id",
+    },
+    {
+      name: "Name",
+      prop: "name",
+    },
+    {
+      name: "Age",
+      prop: "age",
+    },
+    {
+      name: "Email",
+      prop: "email",
+    },
+    {
+      name: "Date",
+      prop: "date",
+    }
+  ];
 
   const validate=(prev:any,current:any)=>{
    if(current.name!=="john"){
@@ -18,16 +39,23 @@ function App() {
    setError({name:"",error:""})
    return true
   }
+
+
   const saveChanges=(prev:any,current:any)=>{
-  console.log("saving ...",current)
+  // console.log("saving ...",current)
   }
+  
   const deleteRow=(current:any)=>{
-  console.log("delteing current ,",current)
+  // console.log("delteing current ,",current)
+  setError({name:"name",error:"not john"})
   }
 
+  const clearError=()=>{
+    setError({name:"",error:""})
+    }
 
   return (
-    <div className="w-screen h-screen bg-slate-700">
+    <div className="w-screen h-screen ">
      <TheTable
      rows={DATA}
      error={error}
@@ -36,6 +64,7 @@ function App() {
      saveChanges={saveChanges}
      deleteRow={deleteRow}
      header={header}
+     clearError={clearError}
      />
     </div>
   );

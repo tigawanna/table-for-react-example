@@ -22,6 +22,7 @@ import { Tyme } from './../TheTable/utils/types';
     startEditing: (index: number, item: any) => void,
     stopEditing: (index: number, item: any) => void,
     removeItem: (index: number, item: any) => void,
+    cancelEdit: (index: number) => void,
     input: any,
     update: boolean,
     error: ErrorState | undefined
@@ -50,7 +51,7 @@ import { Tyme } from './../TheTable/utils/types';
       {header.map((head, index) => {
         return (
           <td
-          className="border-slate-800 border-2 text-center p-1 overflow-hidden text-sm text-white font-medium"
+          className="border-slate-800 border-2 text-center text-black p-1 overflow-hidden text-sm font-medium"
             key={
               //@ts-ignore
               head.prop + item[head.prop]
@@ -69,7 +70,7 @@ import { Tyme } from './../TheTable/utils/types';
                   }
                 />
                 {error && error.name !=="" && error.name === head.prop ? (
-                  <div className="text-red-300 text-sm ">{error.error}</div>
+                  <div className="text-red-400 text-sm ">{error.error}</div>
                 ) : null}
               </div>
             ) : (
@@ -83,7 +84,7 @@ import { Tyme } from './../TheTable/utils/types';
       {update ? (
         <td className="border-slate-800 border-2 p-1 ">
           <IconContext.Provider
-            value={{ size: "20px",className:"mx-[2px] sm:opacity-50 hover:opacity-100 text-white"  }}
+            value={{ size: "20px",className:"mx-[2px] sm:opacity-50 hover:opacity-100 text-black"  }}
           >
             <div className=" w-full  flex justify-center items-center">
             {currentlyEditing ? (
@@ -96,7 +97,7 @@ import { Tyme } from './../TheTable/utils/types';
             ) : null}
             {currentlyEditing ? (
               <FaRegWindowClose
-                onClick={() => removeItem((index = -69), item)}
+                onClick={() => cancelEdit((index))}
               />
             ) : null}
             </div>
