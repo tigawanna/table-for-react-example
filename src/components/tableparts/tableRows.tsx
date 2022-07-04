@@ -5,7 +5,7 @@ import {
     FaRegWindowClose,
   } from "react-icons/fa";
 
-  import { IconContext } from "react-icons/lib";
+import { IconContext } from "react-icons/lib";
 import { ErrorState} from "../TheTable/utils/types";
 import { tymeToDate } from './../TheTable/utils/utils';
 import { Tyme } from './../TheTable/utils/types';
@@ -31,11 +31,12 @@ import { Tyme } from './../TheTable/utils/types';
   //transform <td> data here before it's mapped to the table, remember no obects allowwed as react children
   const mapToCurrent = (
     prop: string | number,
+    type:string,
     item: any
   ): string | number => {
   
   //checking for firebase timestamp object to civert it to date
-  if(prop==="date" && (item[prop] as Tyme).seconds){
+  if(type==="date" && (item[prop] as Tyme).seconds){
    return tymeToDate(item[prop] as Tyme)
   }
 
@@ -51,7 +52,8 @@ import { Tyme } from './../TheTable/utils/types';
       {header.map((head, index) => {
         return (
           <td
-          className="border-slate-800 border-2 text-center text-black p-1 overflow-hidden text-sm font-medium"
+          className="border-slate-800 border-2 text-center text-black p-1 
+          overflow-hidden text-sm font-medium"
             key={
               //@ts-ignore
               head.prop + item[head.prop]
@@ -60,7 +62,8 @@ import { Tyme } from './../TheTable/utils/types';
             {currentlyEditing ? (
               <div>
                 <input
-                  className="w-full border-red-900 border-2 text-center text-black p-[4px] sm:p-[2px]"
+                  className="w-full border-red-900 border-2 text-center text-black
+                   p-[4px] sm:p-[2px]"
                   id={head.prop}
                   name={head.prop}
                   onChange={(e) => handleChange(e, head.prop, index)}
@@ -75,7 +78,7 @@ import { Tyme } from './../TheTable/utils/types';
               </div>
             ) : (
               //@ts-ignore
-              <div>{mapToCurrent(head.prop, item)}</div>
+              <div>{mapToCurrent(head.prop,head.type,item)}</div>
             )}
           </td>
         );

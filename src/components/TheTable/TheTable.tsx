@@ -11,7 +11,7 @@ interface TheTableProps {
 rows:any[]
 error:{name:string,error:string}
 update:boolean
-header:{name:string,prop:string}[]
+header:{name:string,prop:string,type:string}[]
 validate: (prev: any, current: any) => boolean
 saveChanges: (prev: any, current: any) => void
 deleteRow: (current: any) => void
