@@ -10,8 +10,8 @@ function App() {
   const header = [
     {
       name: "ID",
-      prop: "id",
-      type:"string"
+      prop: "theid",
+      type:"id"
     },
     {
       name: "Name",

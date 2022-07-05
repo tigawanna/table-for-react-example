@@ -171,7 +171,7 @@ return (
             </tr>
             </IconContext.Provider>
           </thead>
-          <tbody className="border-slate-800 border-2">
+          <tbody className="">
             {data &&
               data.map((dataitem:Object, dataindex:number) => {
                 return mainRow(

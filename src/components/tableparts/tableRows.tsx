@@ -16,7 +16,7 @@ import { Tyme } from './../TheTable/utils/types';
  export const mainRow = (
     index: number,
     item: any,
-    header: { name: string; prop: string }[],
+    header: { name: string; prop: string ,type:string}[],
     handleChange: any,
     editIdx: number,
     startEditing: (index: number, item: any) => void,
@@ -44,16 +44,25 @@ import { Tyme } from './../TheTable/utils/types';
   return item[prop];
   };
 
+  const addItemId=(item:any,prop:string,type:string)=>{
+  if(type === "id"){ 
+   item["id"]=item[prop]
+  }
+
+  }
+
 
  const currentlyEditing = editIdx === index;
     return (
-      <tr key={item.id} className="">
+      <tr key={index} className="">
       {/* table cell */}
       {header.map((head, index) => {
+        addItemId(item,head.prop,head.type)
+      
         return (
           <td
-          className="border-slate-800 border-2 text-center text-black p-1 
-          overflow-hidden text-sm font-medium"
+          className="border-slate-800 border-2 text-center p-1 
+          overflow-hidden   max-h-1"
             key={
               //@ts-ignore
               head.prop + item[head.prop]
@@ -62,7 +71,7 @@ import { Tyme } from './../TheTable/utils/types';
             {currentlyEditing ? (
               <div>
                 <input
-                  className="w-full border-red-900 border-2 text-center text-black
+                  className="w-full border-red-900 border-2 text-center
                    p-[4px] sm:p-[2px]"
                   id={head.prop}
                   name={head.prop}
