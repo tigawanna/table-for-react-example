@@ -6,6 +6,8 @@ import { mainRow } from '../tableparts/tableRows';
 import { UndoModal } from '../tableparts/UndoModal';
 import { FaSortDown, FaSortUp } from 'react-icons/fa';
 import { IconContext } from 'react-icons/lib';
+import { tymeToDate } from './utils/utils';
+import { Tyme } from './utils/types';
 
 interface TheTableProps {
 rows:any[]
@@ -90,15 +92,24 @@ const handleSortDesc = (field:any) => {
  };
 
  //convert row from td cell to input to start editing
- const startEditing = (index: number) => {
+ const startEditing = (index: number,item:any) => {
    if (index === -23) {
      setEditIdx(-23);
    } else {
      setEditIdx(index);
    }
-//copy the row selected to before to compare to changes in input
- data?.map((row:any, j:number) => (j === index ? setBefore(row) : row));
- data?.map((row:any, j:number) => (j === index ? setInput(row) : row));
+   for(const i in item){
+    //@ts-ignore
+   if(item[i].seconds){
+   item[i]=tymeToDate(item[i] as Tyme)
+   }
+
+   }
+   setInput(item)
+   setBefore(item)
+// //copy the row selected to before to compare to changes in input
+//  data?.map((row:any, j:number) => (j === index ? setBefore(row) : row));
+//  data?.map((row:any, j:number) => (j === index ? setInput(row) : row));
 
 };
 
@@ -144,10 +155,10 @@ const handleSortDesc = (field:any) => {
 
 
 return (
-    <div className="w-full h-full">
-  <div className="w-full h-full overflow-x-scroll lg:overflow-x-hidden">
-        <table border={1} className="table-auto  h-full w-full">
-          <thead className="p-5 w-screen sticky top-0 h-16">
+    <div className="w-full h-full relative top-0">
+  <div className="w-full h-full overflow-x-scroll lg:overflow-x-hidden ">
+        <table border={1} className="table-auto w-full ">
+          <thead className="p-7 w-screen sticky top-0 h-16">
           <IconContext.Provider
             value={{ size: "20px",className:"text-white m-0 p-0 flex-center hover:bg-purple-700 hover:rounded-sm"  }}
           >
@@ -171,7 +182,7 @@ return (
             </tr>
             </IconContext.Provider>
           </thead>
-          <tbody className="">
+          <tbody className="h-full">
             {data &&
               data.map((dataitem:Object, dataindex:number) => {
                 return mainRow(

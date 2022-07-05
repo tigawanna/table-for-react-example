@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { TheTable } from './components/TheTable/TheTable';
 // import {TheTable } from 'table-for-react'
 
+const small_data =DATA.splice(0,2)
 function App() {
   const [update, setUpdate] = useState(true);
   const [error, setError] = useState({name:"",error:""});
@@ -36,10 +37,10 @@ function App() {
   ];
 
   const validate=(prev:any,current:any)=>{
-   if(current.name!=="john"){
-    setError({name:"name",error:"not john"})
-     return false
-   } 
+  //  if(current.name!=="john"){
+  //   setError({name:"name",error:"not john"})
+  //    return false
+  //  } 
 
    setError({name:"",error:""})
    return true
@@ -47,7 +48,7 @@ function App() {
 
 
   const saveChanges=(prev:any,current:any)=>{
-  // console.log("saving ...",current)
+  console.log("saving ...",current,prev)
   }
   
   const deleteRow=(current:any)=>{
@@ -60,9 +61,11 @@ function App() {
     }
 
   return (
-    <div className="w-screen h-screen ">
+    <div className="w-screen h-full overflow-y-hidden">
+    <div className="p-[10%] bg-red-400 h-[40%]">top</div>
+    <div className="absolute h-[60%] w-full z-40 bg-white">
      <TheTable
-     rows={DATA}
+     rows={small_data}
      error={error}
      update={update}
      validate={validate}
@@ -71,6 +74,7 @@ function App() {
      header={header}
      clearError={clearError}
      />
+     </div>
     </div>
   );
 }

@@ -54,15 +54,15 @@ import { Tyme } from './../TheTable/utils/types';
 
  const currentlyEditing = editIdx === index;
     return (
-      <tr key={index} className="">
+      <tr 
+    key={index} className="">
       {/* table cell */}
       {header.map((head, index) => {
         addItemId(item,head.prop,head.type)
       
         return (
           <td
-          className="border-slate-800 border-2 text-center p-1 
-          overflow-hidden   max-h-1"
+          className="border-slate-800 border-2 text-center p-1 "
             key={
               //@ts-ignore
               head.prop + item[head.prop]
@@ -71,8 +71,7 @@ import { Tyme } from './../TheTable/utils/types';
             {currentlyEditing ? (
               <div>
                 <input
-                  className="w-full border-red-900 border-2 text-center
-                   p-[4px] sm:p-[2px]"
+                  className="w-full border-red-900 border-2 text-center "
                   id={head.prop}
                   name={head.prop}
                   onChange={(e) => handleChange(e, head.prop, index)}
