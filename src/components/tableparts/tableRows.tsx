@@ -16,7 +16,7 @@ import { Tyme } from './../TheTable/utils/types';
  export const mainRow = (
     index: number,
     item: any,
-    header: { name: string; prop: string ,type:string}[],
+    header: { name: string; prop: string ,type:string,editable:boolean}[],
     handleChange: any,
     editIdx: number,
     startEditing: (index: number, item: any) => void,
@@ -68,7 +68,7 @@ import { Tyme } from './../TheTable/utils/types';
               head.prop + item[head.prop]
             }
           >
-            {currentlyEditing ? (
+            {currentlyEditing&&head.editable ? (
               <div>
                 <input
                   className="w-full border-red-900 border-2 text-center "
