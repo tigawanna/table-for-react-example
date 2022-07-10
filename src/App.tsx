@@ -1,13 +1,16 @@
 import DATA from './MOCK_TABLE.json'
 import { useState } from 'react';
-import { TheTable } from './components/TheTable/TheTable';
-// import {TheTable } from 'table-for-react'
+// import { TheTable } from './components/TheTable/TheTable';
+import {TheTable } from 'table-for-react'
 
-const small_data =DATA.splice(0,2)
+
+
 function App() {
-  const [update, setUpdate] = useState(true);
+
   const [error, setError] = useState({name:"",error:""});
 
+  const small_data =DATA
+  //  console.log("limit === ",limit)
   const header = [
     {
       name: "ID",
@@ -42,18 +45,25 @@ function App() {
   ];
 
   const validate=(prev:any,current:any)=>{
-  //  if(current.name!=="john"){
-  //   setError({name:"name",error:"not john"})
-  //    return false
-  //  } 
-
+   if(current.name.toLowerCase() ==="deeznuts" || current.name.toLowerCase() ==="deez nuts"){
+    setError({name:"name",error:"behave"})
+     return false
+   } 
+   if(current.age<0){
+    setError({name:"age",error:"must be positive"})
+     return false
+   } 
+   if(current.age>150){
+    setError({name:"age",error:"okey dracula, real age now"})
+     return false
+   } 
    setError({name:"",error:""})
    return true
   }
 
 
   const saveChanges=(prev:any,current:any)=>{
-  console.log("saving ...",current,prev)
+  // console.log("saving ...",current,prev)
   }
   
   const deleteRow=(current:any)=>{
@@ -65,14 +75,17 @@ function App() {
     setError({name:"",error:""})
     }
 
+  // console.log("rows being passed into the table === ",small_data)
   return (
-    <div className="w-screen h-full overflow-y-hidden">
-    <div className="p-[10%] bg-red-400 h-[40%]">top</div>
-    <div className="absolute h-[60%] w-full z-40 bg-white">
+    <div className="w-full h-full overflow-y-hidden">
+
+    {/* <div className="p-[10%] bg-red-400 h-[40%]">top</div> */}
+    <div className="absolute  w-full z-40 bg-white">
      <TheTable
      rows={small_data}
      error={error}
-     update={update}
+     sort={true}
+     update={true}
      validate={validate}
      saveChanges={saveChanges}
      deleteRow={deleteRow}

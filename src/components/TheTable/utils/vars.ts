@@ -2,27 +2,33 @@ export const header = [
     {
       name: "ID",
       prop: "id",
-      type:"string"
+      type:"string",
+      editable:true
     },
     {
       name: "Name",
       prop: "name",
-      type:"string"
+      type:"string",
+      editable:true
     },
     {
       name: "Age",
       prop: "age",
-      type:"number"
+      type:"number",
+      editable:true
     },
     {
       name: "Email",
       prop: "email",
-      type:"string"
+      type:"string",
+      editable:true
+
     },
     {
       name: "Date",
       prop: "date",
-      type:"date"
+      type:"date",
+      editable:true
     }
   ];
   
